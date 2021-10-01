@@ -1,4 +1,4 @@
-// admin js.
+// admin js jouu
 window.addEventListener('load', getPolls);
 document.getElementById('votesUl').addEventListener('click', openPoll);
 
