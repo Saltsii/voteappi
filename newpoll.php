@@ -9,6 +9,7 @@ if (!isset($_SESSION['logged_in'])){
 <?php include_once 'layout/top.inc.php'; ?>
 <?php include_once 'layout/nav.inc.php'; ?>
 
+
 <div class="container">
 
   <div id="msg" class="alert alert-dismissible alert-warning d-none">
