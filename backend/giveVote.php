@@ -1,6 +1,6 @@
 <?php 
 
-// giveVote.php - save vote for option in database
+// giveVote.php - save vote for option in database.
 
 
 if (!isset($_GET['id'])){

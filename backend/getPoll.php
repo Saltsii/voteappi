@@ -1,5 +1,5 @@
 <?php 
-//get all polls from database
+//get all polls from database.
 
 if (!isset($_GET['id'])){
     header('location:  ../index.php');

@@ -1,5 +1,5 @@
 <?php 
-// Tarkistetaan että tullaan kirjautuneena käyttäjänä 
+// Tarkistetaan että tullaan kirjautuneena käyttäjänä. 
 session_start();
 if (!isset($_SESSION['user_id'])){
     $data = array(

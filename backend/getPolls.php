@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-//get all polls from database
+//get all polls from database.
 if (isset($_SESSION['user_id'])){
     $user_id = $_SESSION['user_id'];
 } else {
