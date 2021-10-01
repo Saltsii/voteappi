@@ -1,4 +1,4 @@
-// Login-button
+// Login-button.
 document.forms['login'].addEventListener('submit', loginUser);
 
 function loginUser(event){

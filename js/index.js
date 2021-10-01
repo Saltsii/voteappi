@@ -7,7 +7,7 @@ document.getElementById('votesUl').addEventListener('click', openPoll);
 
 let data = null;
 
-/*get all poll from db and show on page*/
+/*get all poll from db and show, on page*/
 function getPolls(){
     console.log('haetaan data');
     let ajax = new XMLHttpRequest();

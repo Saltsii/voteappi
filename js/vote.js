@@ -1,4 +1,4 @@
-//vote.js
+//vote.js.
 const pollQueryString = window.location.search;
 console.log(pollQueryString);
 

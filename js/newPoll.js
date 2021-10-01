@@ -21,7 +21,7 @@ function createNewPoll(event){
             options.push(input.value);
         }
     })
-    // Tarkastetaan että aihe ja kaski optionia on annettu
+    // Tarkastetaan että aihe ja kaski optionia on annettu.
     if (topic.length <= 0 || options[0].length <= 0 || options[1].length <= 0){
         showMessage('error','"Topic and at least two options must be set!"');
         return;
