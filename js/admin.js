@@ -37,30 +37,16 @@ function getOwnPolls(){
             // show old polls
         if (type == 'old'){
             if  ( end < now && end != false ){
+
+                    createPollLi(ul, poll.id, poll.topic)
+                }
+
     
-                const newLi = document.createElement('li');
-                newLi.classList.add('list-group-item');
-                newLi.dataset.voteid = poll.id;
-        
-                const liText = document.createTextNode(poll.topic);
-                newLi.appendChild(liText);
-        
-                ul.appendChild(newLi);
-        
-            }
-    
-        }
-        if (type == 'future'){
+        }  else if (type == 'future'){  
+
             if  (start > now){
     
-                const newLi = document.createElement('li');
-                newLi.classList.add('list-group-item');
-                newLi.dataset.voteid = poll.id;
-        
-                const liText = document.createTextNode(poll.topic);
-                newLi.appendChild(liText);
-        
-                ul.appendChild(newLi);
+                createPollLi(ul, poll.topic);
         
             }
     
@@ -69,18 +55,9 @@ function getOwnPolls(){
             // show current polls
         if (type == 'current') {
             if ( (start == false || start <= now) && ( end == false || end >= now)  ){
-    
-                const newLi = document.createElement('li');
-                newLi.classList.add('list-group-item');
-                newLi.dataset.voteid = poll.id;
-        
-                const liText = document.createTextNode(poll.topic);
-                newLi.appendChild(liText);
-        
-                ul.appendChild(newLi);
-        
+
+                createPollLi(ul, poll.id, poll.topic);
             }
-    
         }
            /*
           <li class=list-group-item>
@@ -89,8 +66,52 @@ function getOwnPolls(){
            */
     
         });
-    } 
+    }
+
+    /* 
+    createPollLi - creates new Li-element for poll
+    */
+
+    function createPollLi(targetUl, pollId, pollTopic){
+        const newLi = document.createElement('li');
+        newLi.classList.add('list-group-item');
+        newLi.dataset.voteid = pollId;
+
+        const newDeleteBtn = document.createElement('button');
+        newDeleteBtn.dataset.action = 'delete';
+        const deleteText = document.createTextNode('Delete Poll');
+        newDeleteBtn.appendChild(liText);
+
+
+        const newEditBtn = document.createElement('button');
+        newEditBtn.dataset.action = 'edit';
+        const editText = document.createTextNode('Edit Poll');
+        newEditBtn.appendChild(editText);
+
+
+        const liText = document.createTextNode(pollTopic);
+        newLi.appendChild(liText);
+
+        newLi.appendChild(newDeleteBtn);
+        newLi.appendChild(newEditBtn);
+
+        targetUl.appendChild(newLi);
+    }
+
     function openPoll(event){
-        console.log(event.target.dataset.voteid);
+        
+        console.log(event.target.dataset);
+        const action = event.target.dataset.action;
+
+        if (action == 'delete') {
+            alert('Delete Poll');
+            return;
+        }
+
+        if (action == 'edit'){
+            alert('Edit Poll');
+            return;
+        }
+
         window.location.href = "vote.php?id=" + event.target.dataset.voteid;
     }
