@@ -24,8 +24,9 @@ function getPollData(id){
     ajax.open("GET", "Backend/getPoll.php?id=" + id);
     ajax.send();
 }
+
 function showPoll(data){
-    document.querySelector('h1').innerHTML = data[0].topic;
+    document.querySelector('h1').innerHTML = data.topic;
     const ul = document.getElementById('optionsUl');
 
     data['options'].forEach(option => {

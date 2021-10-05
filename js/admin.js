@@ -133,4 +133,5 @@ function showPolls(type = 'current'){
 
     function editPoll(id){
         alert('Edit ' + id);
+        window.location.href = "editpoll.php?id="+id;
     }
