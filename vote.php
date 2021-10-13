@@ -17,14 +17,23 @@ $id = intval($_GET['id']);
 
     <h1></h1>
 
+    <div id="msg" class="alert alert-dismissible alert-warning d-none">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">Onnistui</h4>
+    <p class="mb-0"></a>.</p>
+  </div>
+
+
     <ul id="optionsUl" class="list-group">
         
     </ul>
+
     <!--
     <li class="list-group-item"><button class="btn btn-lg btn-info">Auto</button></li>
         <li class="list-group-item"><button class="btn btn-lg btn-info">Lentokone</button></li>
         <li class="list-group-item"><button class="btn btn-lg btn-info">Usain Bolt</button></li>
       -->
+      
 </div>
 <script src="js/common.js"></script>
 <script src="js/vote.js"></script>
