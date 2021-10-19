@@ -5,7 +5,7 @@ const pollQueryString = window.location.search;
 const pollParams = new URLSearchParams(pollQueryString);
 
 if (pollParams.has('id')){
-    getPollData(pollParams.has('id'))
+    getPollData(pollParams.get('id'))
 }
 
 let optionCount = 0;
@@ -26,7 +26,7 @@ function getPollData(id){
         console.log(data);
         populatePollForm(data);
     }
-    ajax.open("GET", "Backend/getPoll.php?id=" + id);
+    ajax.open("GET", "backend/getPoll.php?id=" + id);
     ajax.send();
 
 }
@@ -58,8 +58,8 @@ function createOptionInputDiv(count, name, id){
     // create new label
     const label = document.createElement('label');
     const forAttribute = document.createAttribute('for');
-    const labelText = document.createTextNode(`option${Count}`);
-    forAttribute.value = `option${Count}`;
+    const labelText = document.createTextNode(`option${count}`);
+    forAttribute.value = `option${count}`;
     label.setAttributeNode(forAttribute);
     label.appendChild(labelText);
     label.classList.add('form-label');
@@ -75,11 +75,11 @@ function createOptionInputDiv(count, name, id){
     input.setAttributeNode(inputType);
 
     const inputName = document.createAttribute('name');
-    inputName.value = `option${Count}`;
+    inputName.value = `option${count}`;
     input.setAttributeNode(inputName);
 
     const inputPlaceHolder = document.createAttribute('placeholder');
-    inputPlaceHolder.value = `option ${Count}`;
+    inputPlaceHolder.value = `option ${count}`;
     input.setAttributeNode(inputPlaceHolder);
 
     input.dataset.optionid = id;
@@ -147,7 +147,6 @@ function addNewOption(event){
     input.setAttributeNode(inputPlaceHolder);
 
     input.dataset.optionid = id;
-
     input.value = name;
 
     const deleteButton = document.createElement('button');

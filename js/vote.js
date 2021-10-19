@@ -65,6 +65,6 @@ function showPoll(data){
     
     
         }
-        ajax.open("GET", "Backend/giveVote.php?id=" + id);
+        ajax.open("GET", "backend/giveVote.php?id=" + id);
         ajax.send();
     }
