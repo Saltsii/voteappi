@@ -5,7 +5,7 @@ const pollQueryString = window.location.search;
 const pollParams = new URLSearchParams(pollQueryString);
 
 if (pollParams.has('id')){
-    getPollData(pollParams.get('id'))
+    getPollData(pollParams.get('id'));
 }
 
 let optionCount = 0;
@@ -28,7 +28,6 @@ function getPollData(id){
     }
     ajax.open("GET", "backend/getPoll.php?id=" + id);
     ajax.send();
-
 }
 
 function populatePollForm(data){
@@ -43,11 +42,10 @@ function populatePollForm(data){
         console.log(option)
         optionCount++;
         target.appendChild(createOptionInputDiv(optionCount, option.name, option.id));
-
     })
 }
 
-// createOptionInputDic -
+// createOptionInputDiv -
 // Creates new input-field to form
 function createOptionInputDiv(count, name, id){
 
@@ -67,7 +65,6 @@ function createOptionInputDiv(count, name, id){
 
     // create new input
     const input = document.createElement('input');
-
     input.classList.add('form-control');
 
     const inputType = document.createAttribute('type');
@@ -83,14 +80,21 @@ function createOptionInputDiv(count, name, id){
     input.setAttributeNode(inputPlaceHolder);
 
     input.dataset.optionid = id;
-
     input.value = name;
+
+    // Delete button
+    const deleteButton = document.createElement('button');
+    deleteButton.className = "btn btn-sm btn-danger float-right";
+
+    const deleteText = document.createTextNode('Delete');
+    deleteButton.appendChild(deleteText);
+    deleteButton.dataset.action = 'delete';
     
     div.appendChild(label);
     div.appendChild(input);
+    div.appendChild(deleteButton);
 
     return div;
-
 }
 
 function deleteLastOption(event){
@@ -106,7 +110,6 @@ function deleteLastOption(event){
     parentElement.removeChild(optionToDelete);
 
     optionCount--;
-
 }
 
 function addNewOption(event){
@@ -145,83 +148,69 @@ function addNewOption(event){
     const inputPlaceHolder = document.createAttribute('placeholder');
     inputPlaceHolder.value = `option ${optionCount}`;
     input.setAttributeNode(inputPlaceHolder);
-
-    input.dataset.optionid = id;
-    input.value = name;
-
-    const deleteButton = document.createElement('button');
-    deleteButton.className = "btn btn-sm btn-danger float-right";
-
-    const deleteText = document.createTextNode('Delete');
-    deleteButton.appendChild(deleteText);
-    deleteButton.dataset.action = 'delete';
     
     div.appendChild(label);
     div.appendChild(input);
-    div.appendChild(deleteButton);
-
-    return div;
-
-
 
     document.querySelector('fieldset').appendChild(div);
     console.log(div);
 }
-    function modifyPoll(event){
-        event.preventDefault();
-        console.log('Save changes');
 
-        // Collect polldata from form
-        let pollData = {};
-        pollData.id = document.forms['editPoll']['id'].value;
-        pollData.topic = document.forms['editPoll']['topic'].value;
-        pollData.start = document.forms['editPoll']['start'].value;
-        pollData.end =  document.forms['editPoll']['end'].value;
+function modifyPoll(event){
+    event.preventDefault();
+    console.log('save change');
 
-        // Collect options
-        const options = [];
-        const inputs = document.querySelector('input');
+    // collect poll data from
+    let pollData = {};
+    pollData.id = document.forms['editPoll']['id'].value;
+    pollData.topic = document.forms['editPoll']['topic'].value;
+    pollData.start = document.forms['editPoll']['start'].value;
+    pollData.end = document.forms['editPoll']['end'].value;
 
-        inputs.forEach(function(input){
-            if(input.name.indexOf('option') == 0){
-                options.push({ id: input.dataset.optionid, name: input.value })
-            }
-        })
+    // Collect options
+    const options = [];
+    const inputs = document.querySelectorAll('input');
 
-        pollData.options = options;
-
-        // Deleted options
-        pollData.todelete = toDelete;
-
-        console.log(pollData);
-
-        // Send data to backend
-        let ajax = new XMLHttpRequest();
-        ajax.onload = function(){
-            let data = JSON.parse(this.responseText);
-            if (data.hasOwnProperty('success')){
-                window.location.href = "admin.php?type=success&msg=Poll edited";
-            } else {
-                showMessage('error', data.error);
-            }
+    inputs.forEach(function(input){
+        if(input.name.indexOf('option') == 0){
+            options.push({ id: input.dataset.optionid, name: input.value})
         }
-        ajax.open("POST", "backend/modifyPoll.php", true);
-        ajax.setRequestHeader("Content-Type", "application/json");
-        ajax.send(JSON.stringify(pollData));
+    })
+
+    pollData.options = options;
+
+    // Delete options
+
+    console.log(pollData);
+    pollData.todelete = toDelete;
+
+    // Send data to backend
+    let ajax = new XMLHttpRequest();
+    ajax.onload = function(){
+        let data = JSON.parse(this.responseText);
+        if (data.hasOwnProperty('success')){
+            window.location.href = "admin.php?type=successmsg=Poll edited"
+        } else {
+            showMessage('error', data.error);
+        }
+    }  
+    ajax.open("POST", "backend/modifyPoll.php", true);
+    ajax.setRequestHeader("Content-Type", "application/json");
+    ajax.send(JSON.stringify(pollData));
+}
+
+function getFieldsetClick(event){
+    event.preventDefault();
+    console.log(event.target)
+    let btn = event.target;
+
+    if (btn.dataset.action == 'delete'){
+        console.log('delete');
+        let div = btn.parentElement;
+        let input = div.querySelector('input');
+        let fieldset = div.parentElement;
+        toDelete.push({id: input.dataset.optionid});
+        fieldset.removeChild(div);
 
     }
-
-    function getFieldsetClick(event){
-        event.preventDefault();
-        console.log(event.target)
-        let btn = event.target;
-
-        if (btn.dataset.action == 'delete'){
-            let div = btn.parentElement;
-            let input = div.querySelector('input');
-            let dieldset = div.parentElement;
-            toDelete.push({id: input.dataset.optionid});
-            fieldset.removeChild(div);
-
-        }
-    }
+}
