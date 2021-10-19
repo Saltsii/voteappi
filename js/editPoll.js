@@ -208,6 +208,5 @@ function getFieldsetClick(event){
         let fieldset = div.parentElement;
         toDelete.push({id: input.dataset.optionid});
         fieldset.removeChild(div);
-
     }
 }
