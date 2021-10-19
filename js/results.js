@@ -34,7 +34,7 @@ function getPollData(id){
         console.log(data);
         showResults(data);
     }
-    ajax.open("GET", "Backend/getPoll.php?id=" + id);
+    ajax.open("GET", "backend/getPoll.php?id=" + id);
     ajax.send();
 }
 

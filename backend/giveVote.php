@@ -34,13 +34,26 @@ try {
     if ($stmt->execute() == false){
         $data['error'] = 'error occured';
     } else {
-        // haetaan äänestyksen id
+
         $poll = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // haetaan äänestyksen id
         $pollid = $poll['id'];
+        
+        // Muodostetaan start ja end päivämääristä timestamp tyyppiset arvot
+        $current_timestamp = time();
+        $start_timestamp = strtotime($poll['start']);
+        $end_timestamp = strtotime($poll['end']);
+
+
         //selvitettään onko käyttäjä jo äänestänyt kyseistä äänestystä
      $cookie_name = "poll_$pollid";
      if (isset($_COOKIE[$cookie_name])){
-        $data['warning'] = 'you allready voted this poll';
+            $data['warning'] = 'you allready voted this poll';
+        }  else if ($end_timestamp < $current_timestamp) {
+            $data['warning'] = 'Poll is out of date and no longer available for voting!'
+        }  else if ($start_timestamp > $current_timestamp) {
+            $data['warning'] = 'Poll is not yet available for voting!'
         }
     }
 

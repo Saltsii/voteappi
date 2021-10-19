@@ -23,7 +23,7 @@ if (!isset($_SESSION['logged_in'])){
       <fieldset>
         <legend>Edit Poll</legend>
         <div class="form-group">
-          <input type="hidden" name ="id"
+          <input type="hidden" name ="id">
           <label for="topic" class="form-label mt-4">Topic</label>
           <input name="topic" type="username" class="form-control" placeholder="topic">
         </div>

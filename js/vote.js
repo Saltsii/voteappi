@@ -50,11 +50,9 @@ function showPoll(data){
 
 // give a vote for option 
 
-function giveVote(event){
-    console.log(event.target.dataset.optionid);
-    
-    let id = event.target.dataset.optionid;
-    
+    function giveVote(event){
+        console.log(event.target.dataset.optionid);
+        let id = event.target.dataset.optionid;
         let ajax = new XMLHttpRequest();
         ajax.onload = function(){
             data = JSON.parse(this.responseText);

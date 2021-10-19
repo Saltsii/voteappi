@@ -1,5 +1,5 @@
 <?php
-$servername = "";
+$servername = "localhost";
 $db_username = "root";
 $db_password = "";
 $dbname = "votedb";
