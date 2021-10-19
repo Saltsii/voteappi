@@ -16,7 +16,6 @@ document.getElementById('deleteLastOption').addEventListener('click', deleteLast
 document.forms['editPoll'].addEventListener('submit', modifyPoll);
 document.querySelector('fieldset').addEventListener('click', getFieldsetClick);
 
-
 // Get poll data from database
 function getPollData(id){
     console.log(id);
@@ -115,7 +114,6 @@ function deleteLastOption(event){
 function addNewOption(event){
 
     event.preventDefault();
-
     optionCount++;
 
     // crete new div
@@ -180,7 +178,6 @@ function modifyPoll(event){
     pollData.options = options;
 
     // Delete options
-
     console.log(pollData);
     pollData.todelete = toDelete;
 
